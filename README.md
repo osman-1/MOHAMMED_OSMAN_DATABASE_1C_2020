@@ -1,2 +1,0 @@
-# MOHAMMED_OSMAN_DATABASE_1C_2020
-![](/blob/master/images/MCD_MLD_MPD_OSMAN.pdf)
