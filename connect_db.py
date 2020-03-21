@@ -4,7 +4,7 @@
 import pymysql
 import pymysql.cursors
 
-# OM 2020.03.16 Se connecter à la BD.
+# OMO 2020.03.16 Se connecter à la BD.
 class DatabaseTools():
     def __init__(self):
         print("Constructeur classe DatabaseTools ")
@@ -13,12 +13,12 @@ class DatabaseTools():
         self.db = pymysql.connect(host="localhost",
                                 user="root",
                                 password="root",
-                                db="NOM_PRENOM_SUJET_BD_104_2020",
+                                db="osman_mohammed_database_1c_2020",
                                 cursorclass=pymysql.cursors.DictCursor)
         print("bd connectée impec !!")
         return self
 
-    # OM 2020.03.11 Petite méthode pour fermer la connection à la BD
+    # OMO 2020.03.11 Petite méthode pour fermer la connection à la BD
     def close_connection (self):
         if self.connect_ma_bd().db:
             print("Dans la méthode close_connection et la BD est FERMEE")
