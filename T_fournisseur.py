@@ -12,11 +12,11 @@ objet_etre_connecte = connect_db.DatabaseTools()
 # OM 2020.01.28 Une instance "insert_records" pour permettre l'utilisation des méthodes de la classe DbInsertOneTable
 insert_records = insert_one_table.DbInsertOneTable()
 
-valeur_debile_mais_presque_aleatoire_a_inserer = "lulu"
+valeur_debile_mais_presque_aleatoire_a_inserer = "lenovo"
 print(valeur_debile_mais_presque_aleatoire_a_inserer)
 
 insert_records.insert_one_record_one_table(
-    "INSERT IGNORE INTO t_user (id_user, Nom) VALUES (null, %(values_insert)s)",
+    "INSERT IGNORE INTO t_fournisseur (id_fournisseur, fournisseur) VALUES (null, %(values_insert)s)",
     valeur_debile_mais_presque_aleatoire_a_inserer)
 
 objet_etre_connecte.close_connection()
