@@ -17,6 +17,6 @@ print(valeur_debile_mais_presque_aleatoire_a_inserer)
 
 insert_records.insert_one_record_one_table(
     "INSERT IGNORE INTO t_fournisseur (id_fournisseur, fournisseur) VALUES (null, %(values_insert)s)",
-    valeur_debile_mais_presque_aleatoire_a_inserer)
+    valeur_debile_mais_presque_aleatoire_a_inserer, valeur_debile_mais_presque_aleatoire_a_inserer1)
 
 objet_etre_connecte.close_connection()
