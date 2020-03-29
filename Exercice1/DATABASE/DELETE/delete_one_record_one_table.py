@@ -4,7 +4,7 @@
 import pymysql
 import warnings
 
-from DATABASE import connect_db
+from Exercice1.DATABASE import connect_db
 
 # OM 2020.03.02 Mécanisme ingénieux qui filtre les warnings et les associes
 # pour être traitées comme des erreurs dans le code Python.

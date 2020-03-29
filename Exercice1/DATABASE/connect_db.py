@@ -12,7 +12,7 @@ class DatabaseTools():
         try:
             # OM 2019.03.09 ON SE CONNECTE A LA BASE DE DONNEE
             # ATTENTION : LE MOT DE PASSE PEUT CHANGER SUIVANT LE SERVEUR MySql QUE VOUS CHOISSISSEZ !!! (Uwamp, Xampp, etc)
-            self.db = pymysql.connect(host="localhost", user="root", password="root", db="NOM_PRENOM_SUJET_BD_104_2020",
+            self.db = pymysql.connect(host="localhost", user="root", password="root", db="osman_mohammed_database_1c_2020",
                                       cursorclass=pymysql.cursors.DictCursor)
             print("BD  CONNECTEE, TOUT va BIEN !! ")
             # un curseur est directement à disposition, il faudra le fermer une fois que les actions sont réalisées

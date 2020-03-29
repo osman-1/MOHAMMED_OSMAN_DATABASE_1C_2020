@@ -2,7 +2,7 @@
 # OM 2020.03.26 le but est de mettre à jour un champ dans une ligne pour une seule table.
 import pymysql
 
-from DATABASE import connect_db
+from Exercice1.DATABASE import connect_db
 
 
 class DbUpdateOneTable():

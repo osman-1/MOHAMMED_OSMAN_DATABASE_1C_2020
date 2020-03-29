@@ -2,7 +2,7 @@
 # OM 2020.03.10 le but est d'afficher toutes les colonnes d'une seule table.
 import pymysql
 
-from DATABASE import connect_db
+from Exercice1.DATABASE import connect_db
 
 class DbSelectOneTable():
 
