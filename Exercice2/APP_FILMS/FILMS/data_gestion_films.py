@@ -33,8 +33,7 @@ class GestionFilms():
             # la commande MySql classique est "SELECT * FROM t_films"
             # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
             # donc, je précise les champs à afficher
-            strsql_films_afficher = """SELECT id_film, nom_film, duree_film, description_film,
-                                        cover_link_film, date_sortie_film FROM t_films"""
+            strsql_films_afficher = """SELECT id_user, Nom, Prenom, UserNom,FROM t_user"""
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
                 # Envoi de la commande MySql
@@ -67,9 +66,7 @@ class GestionFilms():
             #                                   'date_sortie_film': valeur_ins_3}
             # Rssure la personne qui dévelloppe que les valeurs à insérer sont bien à disposition.
             print(valeurs_insertion_dictionnaire)
-            str_sql_insert = "INSERT INTO t_films (id_film, nom_film, duree_film, description_film, " \
-                             "cover_link_film, date_sortie_film) VALUES (NULL, %(value_nom_film)s, %(value_duree_film)s, " \
-                             "%(value_description_film)s, %(value_cover_link_film)s, %(value_date_sortie_film)s)"
+            str_sql_insert = "INSERT INTO t_films (id_user, Nom, Prenom, UserNom) VALUES (NULL, %(Nom)s, %(Prenom)s, %(UserNom)s"
             with MaBaseDeDonnee() as ma_bd_curseur:
                 # OM Méthode "execute" définie simplement pour raccourcir la ligne de code
                 # ligne de code normale : ma_bd_moi.connexion_bd.cursor(str_sql_insert, valeurs_insertion_dictionnaire)
