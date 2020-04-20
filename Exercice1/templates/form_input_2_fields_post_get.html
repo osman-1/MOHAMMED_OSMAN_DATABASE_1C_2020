@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2 val. en POST et affichage des val. en GET</title>
+</head>
+<body>
+  <form method="POST" action="/input_2_champs_retour_colore">
+   Nom utilisateur : <input type="text" name="nom_utilisateur_html" required><br>
+   Prénom utilisateur : <input type="text" name="prenom_utilisateur_html" required><br>
+   <input type="submit" value="SUBMIT">
+  </form>
+  {% if nom_utilisateur_fichier_html %}
+    <h1 style="color:blue;">{{nom_utilisateur_fichier_html}} vous dit : </h1>
+  {% endif %}
+  {% if prenom_utilisateur_fichier_html %}
+    <p style="color:red;">{{prenom_utilisateur_fichier_html}}</p>
+  {% endif %}
+</body>
+</html>
