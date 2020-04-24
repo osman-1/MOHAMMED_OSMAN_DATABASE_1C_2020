@@ -1,10 +1,10 @@
-# routes_gestion_films.py
+# routes_gestion_user.py
 # OM 2020.04.06 Gestions des "routes" FLASK pour les films.
 
 import pymysql
 from flask import render_template, flash, request
 from APP_FILMS import obj_mon_application
-from APP_FILMS.FILMS.data_gestion_films import GestionFilms
+from APP_FILMS.USER.data_gestion_user import GestionFilms
 from APP_FILMS.DATABASE.connect_db_context_manager import MaBaseDeDonnee
 
 # OM 2020.04.16 Afficher un avertissement sympa...mais contraignant
@@ -28,7 +28,7 @@ def films_afficher():
             # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
             obj_actions_films = GestionFilms()
             # Récupére les données grâce à une requête MySql définie dans la classe GestionFilms()
-            # Fichier data_gestion_films.py
+            # Fichier data_gestion_user.py
             data_films = obj_actions_films.films_afficher_data()
             # DEBUG bon marché : Pour afficher un message dans la console.
             print(" data films", data_films, "type ", type(data_films))

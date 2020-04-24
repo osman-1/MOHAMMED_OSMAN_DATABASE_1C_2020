@@ -1,9 +1,9 @@
-# routes_gestion_genres.py
-# OM 2020.04.06 Gestions des "routes" FLASK pour les genres.
+# routes_gestion_material.py
+# OM 2020.04.06 Gestions des "routes" FLASK pour les material.
 
 from flask import render_template, flash, redirect, url_for, request
 from APP_FILMS import obj_mon_application
-from APP_FILMS.GENRES.data_gestion_genres import GestionGenres
+from APP_FILMS.MATERIAL.data_gestion_material import GestionGenres
 from APP_FILMS.DATABASE.erreurs import *
 # OM 2020.04.10 Pour utiliser les expressions régulières REGEX
 import re
@@ -24,13 +24,13 @@ def genres_afficher():
             # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
             obj_actions_genres = GestionGenres()
             # Récupére les données grâce à une requête MySql définie dans la classe GestionGenres()
-            # Fichier data_gestion_genres.py
+            # Fichier data_gestion_material.py
             data_genres = obj_actions_genres.genres_afficher_data()
             # DEBUG bon marché : Pour afficher un message dans la console.
-            print(" data genres", data_genres, "type ", type(data_genres))
+            print(" data material", data_genres, "type ", type(data_genres))
 
             # OM 2020.04.09 La ligns ci-après permet de donner un sentiment rassurant aux utilisateurs.
-            flash("Données genres affichées !!", "Success")
+            flash("Données material affichées !!", "Success")
         except Exception as erreur:
             print(f"RGG Erreur générale.")
             # OM 2020.04.09 On dérive "Exception" par le "@obj_mon_application.errorhandler(404)" fichier "run_mon_app.py"
@@ -40,14 +40,14 @@ def genres_afficher():
             # raise MaBdErreurOperation(f"RGG Exception {msg_erreurs['ErreurNomBD']['message']} {erreur}")
 
     # OM 2020.04.07 Envoie la page "HTML" au serveur.
-    return render_template("genres/genres_afficher.html", data=data_genres)
+    return render_template("material/genres_afficher.html", data=data_genres)
 
 
 # ---------------------------------------------------------------------------------------------------
 # OM 2020.04.07 Définition d'une "route" /genres_add ,
 # cela va permettre de programmer quelles actions sont réalisées avant de l'envoyer
 # au navigateur par la méthode "render_template"
-# En cas d'erreur on affiche à nouveau la page "genres_add.html"
+# En cas d'erreur on affiche à nouveau la page "material_add.html"
 # Pour la tester http://127.0.0.1:1234/genres_add
 # ---------------------------------------------------------------------------------------------------
 @obj_mon_application.route("/genres_add", methods=['GET', 'POST'])
@@ -58,7 +58,7 @@ def genres_add():
         try:
             # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
             obj_actions_genres = GestionGenres()
-            # OM 2020.04.09 Récupère le contenu du champ dans le formulaire HTML "genres_add.html"
+            # OM 2020.04.09 Récupère le contenu du champ dans le formulaire HTML "material_add.html"
             name_genre = request.form['name_genre_html']
 
             # OM 2019.04.04 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
@@ -69,8 +69,8 @@ def genres_add():
                 # OM 2019.03.28 Message humiliant à l'attention de l'utilisateur.
                 flash(f"Une entrée...incorrecte !! Pas de chiffres, de caractères spéciaux, d'espace à double, "
                       f"de double apostrophe, de double trait union et ne doit pas être vide.", "Danger")
-                # On doit afficher à nouveau le formulaire "genres_add.html" à cause des erreurs de "claviotage"
-                return render_template("genres/genres_add.html")
+                # On doit afficher à nouveau le formulaire "material_add.html" à cause des erreurs de "claviotage"
+                return render_template("material/material_add.html")
             else:
 
                 # Constitution d'un dictionnaire et insertion dans la BD
@@ -104,7 +104,7 @@ def genres_add():
             # Ainsi on peut avoir un message d'erreur personnalisé.
             raise MaBdErreurConnexion(f"RGG Exception {msg_erreurs['ErreurConnexionBD']['message']} et son status {msg_erreurs['ErreurConnexionBD']['status']}")
     # OM 2020.04.07 Envoie la page "HTML" au serveur.
-    return render_template("genres/genres_add.html")
+    return render_template("material/material_add.html")
 
 
 # ---------------------------------------------------------------------------------------------------
@@ -154,7 +154,7 @@ def genres_edit():
             raise MaBdErreurConnexion(f"RGG Exception {msg_erreurs['ErreurConnexionBD']['message']}"
                                       f"et son status {msg_erreurs['ErreurConnexionBD']['status']}")
 
-    return render_template("genres/genres_edit.html", data=data_id_genre)
+    return render_template("material/genres_edit.html", data=data_id_genre)
 
 
 # ---------------------------------------------------------------------------------------------------
@@ -204,7 +204,7 @@ def genres_update():
                 # DEBUG bon marché :
                 # Pour afficher le contenu et le type de valeurs passées au formulaire "genres_edit.html"
                 print(valeur_edit_list, "type ..",  type(valeur_edit_list))
-                return render_template('genres/genres_edit.html', data=valeur_edit_list)
+                return render_template('material/genres_edit.html', data=valeur_edit_list)
             else:
                 # Constitution d'un dictionnaire et insertion dans la BD
                 valeur_update_dictionnaire = {"value_id_genre": id_genre_edit, "value_name_genre": name_genre}
@@ -218,7 +218,7 @@ def genres_update():
                 print("dataIdGenre ", data_id_genre, "type ", type(data_id_genre))
                 # Message ci-après permettent de donner un sentiment rassurant aux utilisateurs.
                 flash(f"Editer le genre d'un film !!!")
-                # On affiche les genres
+                # On affiche les material
                 return redirect(url_for('genres_afficher'))
 
         except (Exception,
@@ -229,12 +229,12 @@ def genres_update():
                 TypeError) as erreur:
 
             print(erreur.args)
-            flash(f"problème genres update{erreur.args[0]}")
+            flash(f"problème material update{erreur.args[0]}")
             # En cas de problème, mais surtout en cas de non respect
             # des régles "REGEX" dans le champ "name_edit_intitule_genre_html" alors on renvoie le formulaire "EDIT"
-            return render_template('genres/genres_edit.html', data=valeur_edit_list)
+            return render_template('material/genres_edit.html', data=valeur_edit_list)
 
-    return render_template("genres/genres_update.html")
+    return render_template("material/genres_update.html")
 
 
 # ---------------------------------------------------------------------------------------------------
@@ -274,7 +274,7 @@ def genres_select_delete():
             flash(f"Erreur genres_delete {erreur.args[0], erreur.args[1]}")
 
     # Envoie la page "HTML" au serveur.
-    return render_template('genres/genres_delete.html', data = data_id_genre)
+    return render_template('material/genres_delete.html', data = data_id_genre)
 
 
 # ---------------------------------------------------------------------------------------------------
@@ -296,10 +296,10 @@ def genres_delete():
             valeur_delete_dictionnaire = {"value_id_genre": id_genre_delete}
 
             data_genres = obj_actions_genres.delete_genre_data(valeur_delete_dictionnaire)
-            # OM 2019.04.02 On va afficher la liste des genres des films
+            # OM 2019.04.02 On va afficher la liste des material des films
             # OM 2019.04.02 Envoie la page "HTML" au serveur. On passe un message d'information dans "message_html"
 
-            # On affiche les genres
+            # On affiche les material
             return redirect(url_for('genres_afficher'))
 
 
@@ -313,7 +313,7 @@ def genres_delete():
                 flash('IMPOSSIBLE d\'effacer !!! Cette valeur est associée à des films !')
                 # DEBUG bon marché : Pour afficher un message dans la console.
                 print(f"IMPOSSIBLE d'effacer !! Ce genre est associé à des films dans la t_genres_films !!! : {erreur}")
-                # Afficher la liste des genres des films
+                # Afficher la liste des material des films
                 return redirect(url_for('genres_afficher'))
             else:
                 # Communiquer qu'une autre erreur que la 1062 est survenue.
@@ -324,4 +324,4 @@ def genres_delete():
 
 
             # OM 2019.04.02 Envoie la page "HTML" au serveur.
-    return render_template('genres/genres_afficher.html', data=data_genres)
+    return render_template('material/genres_afficher.html', data=data_genres)

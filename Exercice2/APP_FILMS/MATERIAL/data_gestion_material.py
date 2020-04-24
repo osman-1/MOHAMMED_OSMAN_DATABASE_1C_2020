@@ -1,4 +1,4 @@
-# data_gestion_genres.py
+# data_gestion_material.py
 # OM 2020.04.09 Permet de gérer (CRUD) les données de la table t_genres
 from flask import flash
 
@@ -10,12 +10,12 @@ class GestionGenres():
     def __init__(self):
         try:
             # DEBUG bon marché : Pour afficher un message dans la console.
-            print("dans le try de gestions genres")
+            print("dans le try de gestions material")
             # OM 2020.04.11 La connexion à la base de données est-elle active ?
             # Renvoie une erreur si la connexion est perdue.
             MaBaseDeDonnee().connexion_bd.ping(False)
         except Exception as erreur:
-            flash("Dans Gestion genres ...terrible erreur, il faut connecter une base de donnée", "Danger")
+            flash("Dans Gestion material ...terrible erreur, il faut connecter une base de donnée", "Danger")
             # DEBUG bon marché : Pour afficher un message dans la console.
             print(f"Exception grave Classe constructeur GestionGenres {erreur.args[0]}")
             # Ainsi on peut avoir un message d'erreur personnalisé.
@@ -36,7 +36,7 @@ class GestionGenres():
                 # Récupère les données de la requête.
                 data_genres = mc_afficher.fetchall()
                 # Affichage dans la console
-                print("data_genres ", data_genres, " Type : ", type(data_genres))
+                print("data_material ", data_genres, " Type : ", type(data_genres))
                 # Retourne les données du "SELECT"
                 return data_genres
         except pymysql.Error as erreur:
