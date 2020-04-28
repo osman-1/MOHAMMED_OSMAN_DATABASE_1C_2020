@@ -110,7 +110,7 @@ def genres_add():
 # ---------------------------------------------------------------------------------------------------
 # OM 2020.04.07 Définition d'une "route" /genres_edit , cela va permettre de programmer quelles actions sont réalisées avant de l'envoyer
 # au navigateur par la méthode "render_template".
-# On change la valeur d'un genre de films par la commande MySql "UPDATE"
+# On change la valeur d'un genre de user par la commande MySql "UPDATE"
 # ---------------------------------------------------------------------------------------------------
 @obj_mon_application.route('/genres_edit', methods=['POST', 'GET'])
 def genres_edit():
@@ -160,7 +160,7 @@ def genres_edit():
 # ---------------------------------------------------------------------------------------------------
 # OM 2020.04.07 Définition d'une "route" /genres_update , cela va permettre de programmer quelles actions sont réalisées avant de l'envoyer
 # au navigateur par la méthode "render_template".
-# On change la valeur d'un genre de films par la commande MySql "UPDATE"
+# On change la valeur d'un genre de user par la commande MySql "UPDATE"
 # ---------------------------------------------------------------------------------------------------
 @obj_mon_application.route('/genres_update', methods=['POST', 'GET'])
 def genres_update():
@@ -240,7 +240,7 @@ def genres_update():
 # ---------------------------------------------------------------------------------------------------
 # OM 2020.04.07 Définition d'une "route" /genres_select_delete , cela va permettre de programmer quelles actions sont réalisées avant de l'envoyer
 # au navigateur par la méthode "render_template".
-# On change la valeur d'un genre de films par la commande MySql "UPDATE"
+# On change la valeur d'un genre de user par la commande MySql "UPDATE"
 # ---------------------------------------------------------------------------------------------------
 @obj_mon_application.route('/genres_select_delete', methods=['POST', 'GET'])
 def genres_select_delete():
@@ -296,7 +296,7 @@ def genres_delete():
             valeur_delete_dictionnaire = {"value_id_genre": id_genre_delete}
 
             data_genres = obj_actions_genres.delete_genre_data(valeur_delete_dictionnaire)
-            # OM 2019.04.02 On va afficher la liste des material des films
+            # OM 2019.04.02 On va afficher la liste des material des user
             # OM 2019.04.02 Envoie la page "HTML" au serveur. On passe un message d'information dans "message_html"
 
             # On affiche les material
@@ -307,13 +307,13 @@ def genres_delete():
         except (pymysql.err.OperationalError, pymysql.ProgrammingError, pymysql.InternalError, pymysql.IntegrityError,
                 TypeError) as erreur:
             # OM 2020.04.09 Traiter spécifiquement l'erreur MySql 1451
-            # Cette erreur 1451, signifie qu'on veut effacer un "genre" de films qui est associé dans "t_genres_films".
+            # Cette erreur 1451, signifie qu'on veut effacer un "genre" de user qui est associé dans "t_genres_films".
             if erreur.args[0] == 1451:
                 # C'est une erreur à signaler à l'utilisateur de cette application WEB.
-                flash('IMPOSSIBLE d\'effacer !!! Cette valeur est associée à des films !')
+                flash('IMPOSSIBLE d\'effacer !!! Cette valeur est associée à des user !')
                 # DEBUG bon marché : Pour afficher un message dans la console.
-                print(f"IMPOSSIBLE d'effacer !! Ce genre est associé à des films dans la t_genres_films !!! : {erreur}")
-                # Afficher la liste des material des films
+                print(f"IMPOSSIBLE d'effacer !! Ce genre est associé à des user dans la t_genres_films !!! : {erreur}")
+                # Afficher la liste des material des user
                 return redirect(url_for('genres_afficher'))
             else:
                 # Communiquer qu'une autre erreur que la 1062 est survenue.

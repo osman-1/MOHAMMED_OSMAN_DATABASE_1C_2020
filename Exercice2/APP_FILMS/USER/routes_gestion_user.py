@@ -1,5 +1,5 @@
 # routes_gestion_user.py
-# OM 2020.04.06 Gestions des "routes" FLASK pour les films.
+# OM 2020.04.06 Gestions des "routes" FLASK pour les user.
 
 import pymysql
 from flask import render_template, flash, request
@@ -12,12 +12,12 @@ from APP_FILMS.DATABASE.connect_db_context_manager import MaBaseDeDonnee
 @obj_mon_application.route("/avertissement_sympa_pour_geeks")
 def avertissement_sympa_pour_geeks():
     # OM 2020.04.07 Envoie la page "HTML" au serveur.
-    return render_template("films/AVERTISSEMENT_SYMPA_POUR_LES_GEEKS_films.html")
+    return render_template("user/AVERTISSEMENT_SYMPA_POUR_LES_GEEKS_films.html")
 
 
 
 
-# OM 2020.04.16 Afficher les films
+# OM 2020.04.16 Afficher les user
 # Pour la tester http://127.0.0.1:1234/films_afficher
 @obj_mon_application.route("/films_afficher")
 def films_afficher():
@@ -31,10 +31,10 @@ def films_afficher():
             # Fichier data_gestion_user.py
             data_films = obj_actions_films.films_afficher_data()
             # DEBUG bon marché : Pour afficher un message dans la console.
-            print(" data films", data_films, "type ", type(data_films))
+            print(" data user", data_films, "type ", type(data_films))
 
             # OM 2020.04.09 La ligns ci-après permet de donner un sentiment rassurant aux utilisateurs.
-            flash("Données films affichées !!", "Success")
+            flash("Données user affichées !!", "Success")
         except Exception as erreur:
             print(f"RGF Erreur générale.")
             # OM 2020.04.09 On dérive "Exception" par le "@obj_mon_application.errorhandler(404)" fichier "run_mon_app.py"
@@ -43,10 +43,10 @@ def films_afficher():
             raise Exception(f"RGF Erreur générale. {erreur}")
 
     # OM 2020.04.07 Envoie la page "HTML" au serveur.
-    return render_template("films/films_afficher.html", data=data_films)
+    return render_template("user/films_afficher.html", data=data_films)
 
 
-# OM 2020.04.06 Pour une simple démo. On insère deux fois des valeurs dans la table films
+# OM 2020.04.06 Pour une simple démo. On insère deux fois des valeurs dans la table user
 # Une fois de manière fixe, vous devez changer les valeurs pour voir le résultat dans la table "t_films"
 # La 2ème il faut entrer la valeur du titre du film par le clavier, il ne doit pas être vide.
 # Pour les autres valeurs elles doivent être changées ci-dessous.
@@ -77,8 +77,8 @@ def films_add():
                                                 "value_Prnom": "gogo",
                                                 "value_UserNom": None}
         obj_actions_films.add_film(valeurs_fixes_insertion_dictionnaire)
-        flash("Ajout de 2 films, OK !", "Sucess")
+        flash("Ajout de 2 user, OK !", "Sucess")
         return render_template("home.html")
     except (Exception, pymysql.err.Error) as erreur:
-        flash(f"FLASH ! Gros problème dans l'insertion de 2 films  ! {erreur}", "Danger")
+        flash(f"FLASH ! Gros problème dans l'insertion de 2 user  ! {erreur}", "Danger")
         return render_template("home.html")

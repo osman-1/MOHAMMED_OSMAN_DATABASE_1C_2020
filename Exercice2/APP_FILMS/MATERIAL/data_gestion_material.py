@@ -199,7 +199,7 @@ class GestionGenres():
                 # en MySql le moteur INNODB empêche d'effacer un genre qui est associé à un film dans la table intermédiaire "t_genres_films"
                 # il y a une contrainte sur les FK de la table intermédiaire "t_genres_films"
                 # C'est une erreur à signaler à l'utilisateur de cette application WEB.
-                # flash(f"Flash. IMPOSSIBLE d'effacer !!! Ce genre est associé à des films dans la t_genres_films !!! : {erreur}", "danger")
+                # flash(f"Flash. IMPOSSIBLE d'effacer !!! Ce genre est associé à des user dans la t_genres_films !!! : {erreur}", "danger")
                 # DEBUG bon marché : Pour afficher un message dans la console.
                 print(f"IMPOSSIBLE d'effacer !!! Ce genre est associé à des films dans la t_genres_films !!! : {erreur}")
             raise MaBdErreurDelete(f"DGG Exception {msg_erreurs['ErreurDeleteContrainte']['message']} {erreur}")

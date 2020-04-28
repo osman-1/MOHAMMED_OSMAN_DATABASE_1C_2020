@@ -14,12 +14,12 @@ from APP_FILMS.DATABASE.erreurs import *
 class GestionFilms():
     def __init__(self):
         try:
-            print("dans le try de gestions films")
+            print("dans le try de gestions user")
             # OM 2020.04.11 La connexion à la base de données est-elle active ?
             # Renvoie une erreur si la connexion est perdue.
             MaBaseDeDonnee().connexion_bd.ping(False)
         except Exception as erreur:
-            flash("Dans Gestion films ...terrible erreur, il faut connecter une base de donnée", "Danger")
+            flash("Dans Gestion user ...terrible erreur, il faut connecter une base de donnée", "Danger")
             # DEBUG bon marché : Pour afficher un message dans la console.
             print(f"Exception grave Classe constructeur GestionGenres {erreur.args[0]}")
             raise MaBdErreurConnexion(f"{msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[0]}")

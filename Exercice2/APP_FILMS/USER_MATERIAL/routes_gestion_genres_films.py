@@ -1,5 +1,5 @@
 # routes_gestion_genres_films.py
-# OM 2020.04.16 Gestions des "routes" FLASK pour la table intermédiaire qui associe les films et les material.
+# OM 2020.04.16 Gestions des "routes" FLASK pour la table intermédiaire qui associe les user et les material.
 from flask import render_template
 from APP_FILMS import obj_mon_application
 
@@ -24,7 +24,7 @@ def genres_films_afficher():
     #         # DEBUG bon marché : Pour afficher un message dans la console.
     #
     #         # OM 2020.04.09 La ligns ci-après permet de donner un sentiment rassurant aux utilisateurs.
-    #         flash("Données material de films affichées !!", "Success")
+    #         flash("Données material de user affichées !!", "Success")
     #     except Exception as erreur:
     #         print(f"RGFG Erreur générale.")
     #         # OM 2020.04.09 On dérive "Exception" par le "@obj_mon_application.errorhandler(404)" fichier "run_mon_app.py"
@@ -33,5 +33,5 @@ def genres_films_afficher():
     #         raise Exception(f"RGFG Erreur générale. {erreur}")
 
     # OM 2020.04.07 Envoie la page "HTML" au serveur.
-    return render_template("genres_films/genres_films_afficher.html")
+    return render_template("user_material/genres_films_afficher.html")
 
