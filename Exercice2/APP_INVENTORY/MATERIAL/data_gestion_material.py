@@ -2,8 +2,8 @@
 # OM 2020.04.09 Permet de gérer (CRUD) les données de la table t_genres
 from flask import flash
 
-from APP_FILMS.DATABASE.connect_db_context_manager import MaBaseDeDonnee
-from APP_FILMS.DATABASE.erreurs import *
+from APP_INVENTORY.DATABASE.connect_db_context_manager import MaBaseDeDonnee
+from APP_INVENTORY.DATABASE.erreurs import *
 
 
 class GestionGenres():

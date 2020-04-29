@@ -4,10 +4,10 @@
 
 from flask import flash
 
-from APP_FILMS.DATABASE import connect_db_context_manager
-from APP_FILMS import obj_mon_application
-from APP_FILMS.DATABASE.connect_db_context_manager import MaBaseDeDonnee
-from APP_FILMS.DATABASE.erreurs import *
+from APP_INVENTORY.DATABASE import connect_db_context_manager
+from APP_INVENTORY import obj_mon_application
+from APP_INVENTORY.DATABASE.connect_db_context_manager import MaBaseDeDonnee
+from APP_INVENTORY.DATABASE.erreurs import *
 
 
 
@@ -33,7 +33,7 @@ class GestionFilms():
             # la commande MySql classique est "SELECT * FROM t_films"
             # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
             # donc, je précise les champs à afficher
-            strsql_films_afficher = """SELECT id_user, Nom, Prenom, UserNom,FROM t_user"""
+            strsql_films_afficher = """SELECT id_user, Nom, Prenom, UserNom FROM t_user"""
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
                 # Envoi de la commande MySql
@@ -66,7 +66,7 @@ class GestionFilms():
             #                                   'date_sortie_film': valeur_ins_3}
             # Rssure la personne qui dévelloppe que les valeurs à insérer sont bien à disposition.
             print(valeurs_insertion_dictionnaire)
-            str_sql_insert = "INSERT INTO t_films (id_user, Nom, Prenom, UserNom) VALUES (NULL, %(Nom)s, %(Prenom)s, %(UserNom)s"
+            str_sql_insert = "INSERT INTO t_user (id_user, Nom, Prenom, UserNom) VALUES (NULL, %(Nom)s, %(Prenom)s, %(UserNom)s"
             with MaBaseDeDonnee() as ma_bd_curseur:
                 # OM Méthode "execute" définie simplement pour raccourcir la ligne de code
                 # ligne de code normale : ma_bd_moi.connexion_bd.cursor(str_sql_insert, valeurs_insertion_dictionnaire)

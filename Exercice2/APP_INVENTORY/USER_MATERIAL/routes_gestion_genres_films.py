@@ -1,7 +1,7 @@
 # routes_gestion_genres_films.py
 # OM 2020.04.16 Gestions des "routes" FLASK pour la table intermédiaire qui associe les user et les material.
 from flask import render_template
-from APP_FILMS import obj_mon_application
+from APP_INVENTORY import obj_mon_application
 
 
 # ---------------------------------------------------------------------------------------------------

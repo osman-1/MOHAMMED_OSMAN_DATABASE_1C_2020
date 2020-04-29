@@ -3,9 +3,9 @@
 
 import pymysql
 from flask import render_template, flash, request
-from APP_FILMS import obj_mon_application
-from APP_FILMS.USER.data_gestion_user import GestionFilms
-from APP_FILMS.DATABASE.connect_db_context_manager import MaBaseDeDonnee
+from APP_INVENTORY import obj_mon_application
+from APP_INVENTORY.USER.data_gestion_user import GestionFilms
+from APP_INVENTORY.DATABASE.connect_db_context_manager import MaBaseDeDonnee
 
 # OM 2020.04.16 Afficher un avertissement sympa...mais contraignant
 # Pour la tester http://127.0.0.1:1234/avertissement_sympa_pour_geeks

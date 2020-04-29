@@ -2,9 +2,9 @@
 # OM 2020.04.06 Gestions des "routes" FLASK pour les material.
 
 from flask import render_template, flash, redirect, url_for, request
-from APP_FILMS import obj_mon_application
-from APP_FILMS.MATERIAL.data_gestion_material import GestionGenres
-from APP_FILMS.DATABASE.erreurs import *
+from APP_INVENTORY import obj_mon_application
+from APP_INVENTORY.MATERIAL.data_gestion_material import GestionGenres
+from APP_INVENTORY.DATABASE.erreurs import *
 # OM 2020.04.10 Pour utiliser les expressions régulières REGEX
 import re
 
