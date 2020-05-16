@@ -45,7 +45,7 @@ def personnes_taille_dict():
     # nom_personne = "Gégé"
     # nom_personne = "Hugo"
 
-    nom_personne = "Pignon"
+    nom_personne = "OM"
 
     try:
         # Tout se passe normalement

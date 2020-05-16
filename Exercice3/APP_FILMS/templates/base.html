@@ -40,7 +40,7 @@
 <!-- Navigation -->
 <div class="container">
 	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-	<a class="navbar-brand" href="{{ url_for('home_dans_routes_pour_exemple_hommage_m_el_vyn_mal_herbe') }}">MOD 104 OM EPSIC</a>
+	<a class="navbar-brand" href="{{ url_for('home_dans_routes_pour_exemple_hommage_m_el_vyn_mal_herbe') }}">MOD 104 OSMAN EPSIC</a>
 	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -48,15 +48,15 @@
 		<ul class="navbar-nav ml-auto">
 		  <li class="nav-item">
 <!--		Afficher la liste des genres dans l'ordre (ASC) et tous les genres (0)-->
-			<a class="nav-link" href="{{ url_for('genres_afficher', order_by='ASC', id_genre_sel=0) }}">Genres</a>
+			<a class="nav-link" href="{{ url_for('genres_afficher', order_by='ASC', id_genre_sel=0) }}">MATERIAL</a>
 		  </li>
 		  <li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			  Films
+			  USER
 			</a>
 			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-			  <a class="dropdown-item" href="{{ url_for('films_afficher') }}">Films</a>
-			  <a class="dropdown-item" href="{{ url_for('genres_films_afficher_concat', id_film_sel=0) }}">Films et genres</a>
+			  <a class="dropdown-item" href="{{ url_for('films_afficher') }}">USER</a>
+			  <a class="dropdown-item" href="{{ url_for('genres_films_afficher_concat', id_film_sel=0) }}">USER and MATERIAL</a>
 			</div>
 		  </li>
 		  <li class="nav-item dropdown">
