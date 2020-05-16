@@ -20,7 +20,7 @@ class MaBaseDeDonnee():
         self.host = '127.0.0.1'
         self.user = 'root'
         self.password = 'root'
-        self.db = "NOM_PRENOM_SUJET_BD_104_2020"
+        self.db = "OSMAN_MOHAMMED_DATABASE_1C_2020"
 
         self.connexion_bd = None
         try:

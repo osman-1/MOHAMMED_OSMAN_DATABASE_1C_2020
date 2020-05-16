@@ -11,12 +11,12 @@ from APP_FILMS.DATABASE.erreurs import *
 class GestionFilms():
     def __init__(self):
         try:
-            print("dans le try de gestions films")
+            print("dans le try de gestions user")
             # OM 2020.04.11 La connexion à la base de données est-elle active ?
             # Renvoie une erreur si la connexion est perdue.
             MaBaseDeDonnee().connexion_bd.ping(False)
         except Exception as erreur:
-            flash("Dans Gestion films ...terrible erreur, il faut connecter une base de donnée", "danger")
+            flash("Dans Gestion user ...terrible erreur, il faut connecter une base de donnée", "Danger")
             # DEBUG bon marché : Pour afficher un message dans la console.
             print(f"Exception grave Classe constructeur GestionGenres {erreur.args[0]}")
             raise MaBdErreurConnexion(f"{msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[0]}")
@@ -30,8 +30,7 @@ class GestionFilms():
             # la commande MySql classique est "SELECT * FROM t_films"
             # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
             # donc, je précise les champs à afficher
-            strsql_films_afficher = """SELECT id_film, nom_film, duree_film, description_film,
-                                        cover_link_film, date_sortie_film FROM t_films"""
+            strsql_films_afficher = """SELECT id_user, Nom, Prenom, UserNom FROM t_user"""
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
                 # Envoi de la commande MySql
@@ -63,9 +62,7 @@ class GestionFilms():
             #                                   'date_sortie_film': valeur_ins_3}
             # Montre à la personne qui développe que les valeurs à insérer sont bien à disposition.
             print(valeurs_insertion_dictionnaire)
-            str_sql_insert = "INSERT INTO t_films (id_film, nom_film, duree_film, description_film, " \
-                             "cover_link_film, date_sortie_film) VALUES (NULL, %(value_nom_film)s, %(value_duree_film)s, " \
-                             "%(value_description_film)s, %(value_cover_link_film)s, %(value_date_sortie_film)s)"
+            str_sql_insert = "INSERT INTO t_user (id_user, Nom, Prenom, UserNom) VALUES (NULL, %(Nom)s, %(Prenom)s, %(UserNom)s"
             with MaBaseDeDonnee() as ma_bd_curseur:
                 # OM Méthode "execute" définie simplement pour raccourcir la ligne de code
                 # ligne de code normale : ma_bd_moi.connexion_bd.cursor(str_sql_insert, valeurs_insertion_dictionnaire)

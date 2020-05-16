@@ -62,11 +62,9 @@ def films_add():
     #if obj_ma_db.open:
     try:
         obj_actions_films = GestionFilms()
-        valeurs_fixes_insertion_dictionnaire = {"value_nom_film": "Film 100000",
-                                                "value_duree_film": "567",
-                                                "value_description_film": "C'est un film qui montre ooh oui... les'",
-                                                "value_cover_link_film": "http://sdfsfsf.sdfdsf.tk",
-                                                'value_date_sortie_film': "1945-04-06"}
+        valeurs_fixes_insertion_dictionnaire = {"value_Nom": "mem",
+                                                "value_Prenom": "waw",
+                                                "value_UserNom": "this is me"}
         obj_actions_films.add_film(valeurs_fixes_insertion_dictionnaire)
         # OM 2020.04.06 Entrée d'un titre de film au clavier pour les essais c'est mieux qu'une valeur aléatoire
         # Si l'utilisateur "claviote" seulement "ENTREE", alors on redemande de "clavioter" une chaîne de caractères
@@ -75,13 +73,11 @@ def films_add():
         while not nom_film_keyboard:
             nom_film_keyboard = input("Titre du film ?")
 
-        # Pour des essais il y a une valeur avec la valeur "None"... lorsqu'elle va être insérée en MySql
+        # Pour des essais il y a une valeur avec la valeur "None"... lorsqu'elle va être insèrée en MySql
         # ce sera la valeur NULL
-        valeurs_fixes_insertion_dictionnaire = {"value_nom_film": nom_film_keyboard,
-                                                "value_duree_film": "567",
-                                                "value_description_film": "C'est un film qui montre... les'",
-                                                "value_cover_link_film": None,
-                                                'value_date_sortie_film': "1945-04-06"}
+        valeurs_fixes_insertion_dictionnaire = {"value_Nom": nom_film_keyboard,
+                                                "value_Prnom": "hello",
+                                                "value_UserNom": None}
         obj_actions_films.add_film(valeurs_fixes_insertion_dictionnaire)
         flash("Ajout de 2 films, OK !", "success")
         return render_template("home.html")
