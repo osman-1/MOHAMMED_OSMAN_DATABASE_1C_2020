@@ -62,7 +62,7 @@ class GestionFilms():
             #                                   'date_sortie_film': valeur_ins_3}
             # Montre à la personne qui développe que les valeurs à insérer sont bien à disposition.
             print(valeurs_insertion_dictionnaire)
-            str_sql_insert = "INSERT INTO t_user (id_user, Nom, Prenom, UserNom) VALUES (NULL, %(Nom)s, %(Prenom)s, %(UserNom)s"
+            str_sql_insert = "INSERT INTO t_user (id_user, Nom, Prenom, UserNom) VALUES (NULL, %(Nom)s, %(Prenom)s, %(UserNom)s)"
             with MaBaseDeDonnee() as ma_bd_curseur:
                 # OM Méthode "execute" définie simplement pour raccourcir la ligne de code
                 # ligne de code normale : ma_bd_moi.connexion_bd.cursor(str_sql_insert, valeurs_insertion_dictionnaire)

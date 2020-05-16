@@ -30,7 +30,7 @@ class GestionGenres():
                 # Afficher soit la liste des genres dans l'ordre inverse ou simplement le genre sélectionné
                 # par l'action edit
                 if valeur_order_by == "ASC" and id_genre_sel == 0:
-                    strsql_genres_afficher = """SELECT id_genre, intitule_genre FROM t_genres ORDER BY id_genre ASC"""
+                    strsql_genres_afficher = """SELECT id_material, material FROM t_material ORDER BY id_material ASC"""
                     mc_afficher.execute(strsql_genres_afficher)
                 elif valeur_order_by == "ASC":
                     # OM 2020.04.07 C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
@@ -38,12 +38,12 @@ class GestionGenres():
                     # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
                     # donc, je précise les champs à afficher
                     # Constitution d'un dictionnaire pour associer l'id du genre sélectionné avec un nom de variable
-                    valeur_id_genre_selected_dictionnaire = {"value_id_genre_selected": id_genre_sel}
-                    strsql_genres_afficher = """SELECT id_genre, intitule_genre FROM t_genres  WHERE id_genre = %(value_id_genre_selected)s"""
+                    valeur_id_genre_selected_dictionnaire = {"value_id_material_selected": id_genre_sel}
+                    strsql_genres_afficher = """SELECT id_material, material FROM t_material  WHERE id_material = %(value_id_material_selected)s"""
                     # Envoi de la commande MySql
                     mc_afficher.execute(strsql_genres_afficher, valeur_id_genre_selected_dictionnaire)
                 else:
-                    strsql_genres_afficher = """SELECT id_genre, intitule_genre FROM t_genres ORDER BY id_genre DESC"""
+                    strsql_genres_afficher = """SELECT id_material, material FROM t_material ORDER BY id_material DESC"""
                     # Envoi de la commande MySql
                     mc_afficher.execute(strsql_genres_afficher)
                 # Récupère les données de la requête.
@@ -68,7 +68,7 @@ class GestionGenres():
         try:
             print(valeurs_insertion_dictionnaire)
             # OM 2020.04.07 C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
-            strsql_insert_genre = """INSERT INTO t_genres (id_genre,intitule_genre) VALUES (NULL,%(value_intitule_genre)s)"""
+            strsql_insert_genre = """INSERT INTO t_material (id_material,material) VALUES (NULL,%(value_material)s)"""
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             # la subtilité consiste à avoir une méthode "mabd_execute" dans la classe "MaBaseDeDonnee"
             # ainsi quand elle aura terminé l'insertion des données le destructeur de la classe "MaBaseDeDonnee"
@@ -88,7 +88,7 @@ class GestionGenres():
             print(valeur_id_dictionnaire)
             # OM 2020.04.07 C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
             # Commande MySql pour afficher le genre sélectionné dans le tableau dans le formulaire HTML
-            str_sql_id_genre = "SELECT id_genre, intitule_genre FROM t_genres WHERE id_genre = %(value_id_genre)s"
+            str_sql_id_genre = "SELECT id_material, material FROM t_material WHERE id_material = %(value_id_material)s"
 
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             # la subtilité consiste à avoir une méthode "mabd_execute" dans la classe "MaBaseDeDonnee"
@@ -116,7 +116,7 @@ class GestionGenres():
             # OM 2019.04.02 Commande MySql pour la MODIFICATION de la valeur "CLAVIOTTEE" dans le champ "nameEditIntituleGenreHTML" du form HTML "GenresEdit.html"
             # le "%s" permet d'éviter des injections SQL "simples"
             # <td><input type = "text" name = "nameEditIntituleGenreHTML" value="{{ row.intitule_genre }}"/></td>
-            str_sql_update_intitulegenre = "UPDATE t_genres SET intitule_genre = %(value_name_genre)s WHERE id_genre = %(value_id_genre)s"
+            str_sql_update_intitulegenre = "UPDATE t_material SET material = %(value_material)s WHERE id_material = %(value_id_material)s"
 
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             # la subtilité consiste à avoir une méthode "mabd_execute" dans la classe "MaBaseDeDonnee"
