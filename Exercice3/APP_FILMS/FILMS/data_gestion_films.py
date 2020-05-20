@@ -7,7 +7,6 @@ from APP_FILMS.DATABASE.connect_db_context_manager import MaBaseDeDonnee
 from APP_FILMS.DATABASE.erreurs import *
 
 
-
 class GestionFilms():
     def __init__(self):
         try:
@@ -55,26 +54,27 @@ class GestionFilms():
 
 
 
+    # def add_film(self, nom_film, duree_film, date_sortie_film):
     def add_film(self, valeurs_insertion_dictionnaire):
         try:
             # # Définitions d'un dictionnaire pour passer les valeurs en paramètres de façon un "peu" sécurisée dans la BD
             # valeurs_insertion_dictionnaire = {'value_nom_film': valeur_ins_1, 'value_duree_film': valeur_ins_2,
             #                                   'date_sortie_film': valeur_ins_3}
-            # Montre à la personne qui développe que les valeurs à insérer sont bien à disposition.
+            # Rssure la personne qui dévelloppe que les valeurs à insérer sont bien à disposition.
             print(valeurs_insertion_dictionnaire)
-            str_sql_insert = "INSERT INTO t_user (id_user, Nom, Prenom, UserNom) VALUES (NULL, %(Nom)s, %(Prenom)s, %(UserNom)s)"
+            str_sql_insert = "INSERT INTO t_user (id_user, Nom, Prenom, UserNom) VALUES (NULL, %(Nom)s, %(Prenom)s, %(UserNom)s"
             with MaBaseDeDonnee() as ma_bd_curseur:
                 # OM Méthode "execute" définie simplement pour raccourcir la ligne de code
                 # ligne de code normale : ma_bd_moi.connexion_bd.cursor(str_sql_insert, valeurs_insertion_dictionnaire)
-                ma_bd_curseur.mabd_execute(str_sql_insert, valeurs_insertion_dictionnaire)
+                ma_bd_curseur.execute(str_sql_insert, valeurs_insertion_dictionnaire)
 
         except Exception as erreur:
-            # OM 2020.04.09 DIFFÉRENTS MOYENS D'INFORMER EN CAS D'ERREURS.
+            # OM 2020.04.09 DIFFERENTS MOYENS D'INFORMER EN CAS D'ERREURS.
             # Message dans la console en cas d'échec du bon déroulement des commandes ci-dessus.
             print("Data Gestions Films ERREUR: {0}".format(erreur))
             print(f"Print console ... Data Gestions Films, numéro de l'erreur : {erreur}")
             # Petits messages "flash", échange entre Python et Jinja dans une page en HTML
-            flash(f"Flash ... Data Gestions Films, numéro de l'erreur : {erreur}","danger")
+            flash(f"Flash ... Data Gestions Films, numéro de l'erreur : {erreur}")
             # raise, permet de "lever" une exception et de personnaliser la page d'erreur
             # voir fichier "run_mon_app.py"
 

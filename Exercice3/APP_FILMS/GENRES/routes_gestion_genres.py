@@ -71,7 +71,7 @@ def genres_add ():
             # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
             obj_actions_genres = GestionGenres()
             # OM 2020.04.09 Récupère le contenu du champ dans le formulaire HTML "genres_add.html"
-            name_genre = request.form['name_genre_html']
+            name_genre = request.form['name_material_html']
             # On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
             # des valeurs avec des caractères qui ne sont pas des lettres.
             # Pour comprendre [A-Za-zÀ-ÖØ-öø-ÿ] il faut se reporter à la table ASCII https://www.ascii-code.com/
@@ -86,7 +86,7 @@ def genres_add ():
             else:
 
                 # Constitution d'un dictionnaire et insertion dans la BD
-                valeurs_insertion_dictionnaire = {"value_intitule_genre": name_genre}
+                valeurs_insertion_dictionnaire = {"value_material": name_genre}
                 obj_actions_genres.add_genre_data(valeurs_insertion_dictionnaire)
 
                 # OM 2019.03.25 Les 2 lignes ci-après permettent de donner un sentiment rassurant aux utilisateurs.
@@ -95,7 +95,7 @@ def genres_add ():
                 # On va interpréter la "route" 'genres_afficher', car l'utilisateur
                 # doit voir le nouveau genre qu'il vient d'insérer. Et on l'affiche de manière
                 # à voir le dernier élément inséré.
-                return redirect(url_for('genres_afficher', order_by = 'DESC', id_genre_sel=0))
+                return redirect(url_for('genres_afficher', order_by = 'DESC', id_material_sel=0))
 
         # OM 2020.04.16 ATTENTION à l'ordre des excepts, il est très important de respecter l'ordre.
         except pymysql.err.IntegrityError as erreur:

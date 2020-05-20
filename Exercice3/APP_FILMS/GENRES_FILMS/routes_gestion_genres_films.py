@@ -48,8 +48,8 @@ def genres_films_afficher_concat (id_film_sel):
 # Récupère la liste de tous les genres du film sélectionné.
 # Nécessaire pour afficher tous les "TAGS" des genres, ainsi l'utilisateur voit les genres à disposition
 # ---------------------------------------------------------------------------------------------------
-@obj_mon_application.route("/gf_edit_genre_film_selected", methods=['GET', 'POST'])
-def gf_edit_genre_film_selected ():
+@obj_mon_application.route("/gf_edit_material_user_selected", methods=['GET', 'POST'])
+def gf_edit_material_user_selected ():
     if request.method == "GET":
         try:
 
@@ -67,15 +67,15 @@ def gf_edit_genre_film_selected ():
             # OM 2020.04.21 Récupère la valeur de "id_film" du formulaire html "genres_films_afficher.html"
             # l'utilisateur clique sur le lien "Modifier genres de ce film" et on récupère la valeur de "id_film" grâce à la variable "id_film_genres_edit_html"
             # <a href="{{ url_for('gf_edit_genre_film_selected', id_film_genres_edit_html=row.id_film) }}">Modifier les genres de ce film</a>
-            id_film_genres_edit = request.values['id_film_genres_edit_html']
+            id_film_genres_edit = request.values['id_user_material_edit_html']
 
             # OM 2020.04.21 Mémorise l'id du film dans une variable de session
             # (ici la sécurité de l'application n'est pas engagée)
             # il faut éviter de stocker des données sensibles dans des variables de sessions.
-            session['session_id_film_genres_edit'] = id_film_genres_edit
+            session['session_id_user_material_edit'] = id_film_genres_edit
 
             # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
-            valeur_id_film_selected_dictionnaire = {"value_id_film_selected": id_film_genres_edit}
+            valeur_id_film_selected_dictionnaire = {"value_id_user_selected": id_film_genres_edit}
 
             # Récupère les données grâce à 3 requêtes MySql définie dans la classe GestionGenresFilms()
             # 1) Sélection du film choisi
@@ -86,39 +86,39 @@ def gf_edit_genre_film_selected ():
             data_genre_film_selected, data_genres_films_non_attribues, data_genres_films_attribues = \
                 obj_actions_genres.genres_films_afficher_data(valeur_id_film_selected_dictionnaire)
 
-            lst_data_film_selected = [item['id_film'] for item in data_genre_film_selected]
+            lst_data_film_selected = [item['id_user'] for item in data_genre_film_selected]
             # DEBUG bon marché : Pour afficher le résultat et son type.
-            print("lst_data_film_selected  ", lst_data_film_selected,
+            print("lst_data_user_selected  ", lst_data_film_selected,
                   type(lst_data_film_selected))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
             # les genres qui ne sont pas encore sélectionnés.
-            lst_data_genres_films_non_attribues = [item['id_genre'] for item in data_genres_films_non_attribues]
-            session['session_lst_data_genres_films_non_attribues'] = lst_data_genres_films_non_attribues
+            lst_data_genres_films_non_attribues = [item['id_material'] for item in data_genres_films_non_attribues]
+            session['session_lst_data_material_user_non_attribues'] = lst_data_genres_films_non_attribues
             # DEBUG bon marché : Pour afficher le résultat et son type.
-            print("lst_data_genres_films_non_attribues  ", lst_data_genres_films_non_attribues,
+            print("lst_data_material_user_non_attribues  ", lst_data_genres_films_non_attribues,
                   type(lst_data_genres_films_non_attribues))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
             # les genres qui sont déjà sélectionnés.
-            lst_data_genres_films_old_attribues = [item['id_genre'] for item in data_genres_films_attribues]
-            session['session_lst_data_genres_films_old_attribues'] = lst_data_genres_films_old_attribues
+            lst_data_genres_films_old_attribues = [item['id_user'] for item in data_genres_films_attribues]
+            session['session_lst_data_material_user_old_attribues'] = lst_data_genres_films_old_attribues
             # DEBUG bon marché : Pour afficher le résultat et son type.
-            print("lst_data_genres_films_old_attribues  ", lst_data_genres_films_old_attribues,
+            print("lst_data_material_user_old_attribues  ", lst_data_genres_films_old_attribues,
                   type(lst_data_genres_films_old_attribues))
 
             # DEBUG bon marché : Pour afficher le résultat et son type.
-            print(" data data_genre_film_selected", data_genre_film_selected, "type ", type(data_genre_film_selected))
-            print(" data data_genres_films_non_attribues ", data_genres_films_non_attribues, "type ",
+            print(" data data_material_user_selected", data_genre_film_selected, "type ", type(data_genre_film_selected))
+            print(" data data_material_user_non_attribues ", data_genres_films_non_attribues, "type ",
                   type(data_genres_films_non_attribues))
-            print(" data_genres_films_attribues ", data_genres_films_attribues, "type ",
+            print(" data_material_user_attribues ", data_genres_films_attribues, "type ",
                   type(data_genres_films_attribues))
 
             # Extrait les valeurs contenues dans la table "t_genres", colonne "intitule_genre"
             # Le composant javascript "tagify" pour afficher les tags n'a pas besoin de l'id_genre
-            lst_data_genres_films_non_attribues = [item['intitule_genre'] for item in data_genres_films_non_attribues]
+            lst_data_genres_films_non_attribues = [item['material'] for item in data_genres_films_non_attribues]
             # DEBUG bon marché : Pour afficher le résultat et son type.
-            print("lst_all_genres gf_edit_genre_film_selected ", lst_data_genres_films_non_attribues,
+            print("lst_all_material gf_edit_material_user_selected ", lst_data_genres_films_non_attribues,
                   type(lst_data_genres_films_non_attribues))
 
             # Différencier les messages si la table est vide.
@@ -155,15 +155,15 @@ def gf_update_genre_film_selected ():
     if request.method == "POST":
         try:
             # Récupère l'id du film sélectionné
-            id_film_selected = session['session_id_film_genres_edit']
-            print("session['session_id_film_genres_edit'] ", session['session_id_film_genres_edit'])
+            id_film_selected = session['session_id_user_material_edit']
+            print("session['session_id_user_material_edit'] ", session['session_id_user_material_edit'])
 
             # Récupère la liste des genres qui ne sont pas associés au film sélectionné.
-            old_lst_data_genres_films_non_attribues = session['session_lst_data_genres_films_non_attribues']
+            old_lst_data_genres_films_non_attribues = session['session_lst_data_material_user_non_attribues']
             print("old_lst_data_genres_films_non_attribues ", old_lst_data_genres_films_non_attribues)
 
             # Récupère la liste des genres qui sont associés au film sélectionné.
-            old_lst_data_genres_films_attribues = session['session_lst_data_genres_films_old_attribues']
+            old_lst_data_genres_films_attribues = session['session_lst_data_material_user_old_attribues']
             print("old_lst_data_genres_films_old_attribues ", old_lst_data_genres_films_attribues)
 
             # Effacer toutes les variables de session.
@@ -177,7 +177,7 @@ def gf_update_genre_film_selected ():
             # OM 2020.04.29 Dans "name_select_tags" il y a ['4','65','2']
             # On transforme en une liste de valeurs numériques. [4,65,2]
             new_lst_int_genres_films_old = list(map(int, new_lst_str_genres_films))
-            print("new_lst_genres_films ", new_lst_int_genres_films_old, "type new_lst_genres_films ",
+            print("new_lst_material_user ", new_lst_int_genres_films_old, "type new_lst_material_user ",
                   type(new_lst_int_genres_films_old))
 
             # Pour apprécier la facilité de la vie en Python... "les ensembles en Python"
@@ -186,7 +186,7 @@ def gf_update_genre_film_selected ():
             lst_diff_genres_delete_b = list(
                 set(old_lst_data_genres_films_attribues) - set(new_lst_int_genres_films_old))
             # DEBUG bon marché : Pour afficher le résultat de la liste.
-            print("lst_diff_genres_delete_b ", lst_diff_genres_delete_b)
+            print("lst_diff_material_delete_b ", lst_diff_genres_delete_b)
 
             # OM 2020.04.29 Une liste de "id_genre" qui doivent être ajoutés à la BD
             lst_diff_genres_insert_a = list(
@@ -202,8 +202,8 @@ def gf_update_genre_film_selected ():
             for id_genre_ins in lst_diff_genres_insert_a:
                 # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
                 # et "id_genre_ins" (l'id du genre dans la liste) associé à une variable.
-                valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_film_selected,
-                                                           "value_fk_genre": id_genre_ins}
+                valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_user": id_film_selected,
+                                                           "value_fk_material": id_genre_ins}
                 # Insérer une association entre un(des) genre(s) et le film sélectionner.
                 obj_actions_genres.genres_films_add(valeurs_film_sel_genre_sel_dictionnaire)
 
@@ -212,8 +212,8 @@ def gf_update_genre_film_selected ():
             for id_genre_del in lst_diff_genres_delete_b:
                 # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
                 # et "id_genre_del" (l'id du genre dans la liste) associé à une variable.
-                valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_film_selected,
-                                                           "value_fk_genre": id_genre_del}
+                valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_user": id_film_selected,
+                                                           "value_fk_material": id_genre_del}
                 # Effacer une association entre un(des) genre(s) et le film sélectionner.
                 obj_actions_genres.genres_films_delete(valeurs_film_sel_genre_sel_dictionnaire)
 

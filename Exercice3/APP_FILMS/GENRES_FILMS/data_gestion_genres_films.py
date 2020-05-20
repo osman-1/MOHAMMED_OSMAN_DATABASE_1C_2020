@@ -170,7 +170,7 @@ class GestionGenresFilms():
             print(valeurs_insertion_dictionnaire)
             # OM 2020.04.07 C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
             # Insérer une (des) nouvelle(s) association(s) entre "id_film" et "id_genre" dans la "t_genre_film"
-            strsql_insert_genre_film = """INSERT INTO t_user_material (id_user_material, fk_material, fk_user)
+            strsql_insert_genre_film = """INSERT INTO t_user_material (id_t_r_user_material, fk_material, fk_user)
                                             VALUES (NULL, %(value_fk_material)s, %(value_fk_user)s)"""
 
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
