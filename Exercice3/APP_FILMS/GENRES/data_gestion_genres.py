@@ -21,7 +21,7 @@ class GestionGenres():
             raise MaBdErreurConnexion(f"{msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[0]}")
         print("Classe constructeur GestionGenres ")
 
-    def genres_afficher_data (self, valeur_order_by, id_genre_sel):
+    def genres_afficher_data (self, valeur_order_by, id_material_sel):
         try:
             print("valeur_order_by ", valeur_order_by, type(valeur_order_by))
 
@@ -29,7 +29,7 @@ class GestionGenres():
             with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
                 # Afficher soit la liste des genres dans l'ordre inverse ou simplement le genre sélectionné
                 # par l'action edit
-                if valeur_order_by == "ASC" and id_genre_sel == 0:
+                if valeur_order_by == "ASC" and id_material_sel == 0:
                     strsql_genres_afficher = """SELECT id_material, material FROM t_material ORDER BY id_material ASC"""
                     mc_afficher.execute(strsql_genres_afficher)
                 elif valeur_order_by == "ASC":
@@ -38,7 +38,7 @@ class GestionGenres():
                     # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
                     # donc, je précise les champs à afficher
                     # Constitution d'un dictionnaire pour associer l'id du genre sélectionné avec un nom de variable
-                    valeur_id_genre_selected_dictionnaire = {"value_id_material_selected": id_genre_sel}
+                    valeur_id_genre_selected_dictionnaire = {"value_id_material_selected": id_material_sel}
                     strsql_genres_afficher = """SELECT id_material, material FROM t_material  WHERE id_material = %(value_id_material_selected)s"""
                     # Envoi de la commande MySql
                     mc_afficher.execute(strsql_genres_afficher, valeur_id_genre_selected_dictionnaire)
@@ -68,7 +68,7 @@ class GestionGenres():
         try:
             print(valeurs_insertion_dictionnaire)
             # OM 2020.04.07 C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
-            strsql_insert_genre = """INSERT INTO t_material (id_material,material) VALUES (NULL,%(value_material)s)"""
+            strsql_insert_genre = """INSERT INTO t_material (id_material, material, model, Num serie, Fin de garentie, Date d'achat) VALUES (NULL,%(value_material),%(value_model),%(value_NumSerie),(value_fin),%(value_date)s)"""
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             # la subtilité consiste à avoir une méthode "mabd_execute" dans la classe "MaBaseDeDonnee"
             # ainsi quand elle aura terminé l'insertion des données le destructeur de la classe "MaBaseDeDonnee"

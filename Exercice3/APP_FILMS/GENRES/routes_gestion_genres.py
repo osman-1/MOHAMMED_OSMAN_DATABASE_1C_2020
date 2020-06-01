@@ -16,8 +16,8 @@ import re
 # Pour tester http://127.0.0.1:5005/genres_afficher
 # order_by : ASC : Ascendant, DESC : Descendant
 # ---------------------------------------------------------------------------------------------------
-@obj_mon_application.route("/genres_afficher/<string:order_by>/<int:id_genre_sel>", methods=['GET', 'POST'])
-def genres_afficher(order_by,id_genre_sel):
+@obj_mon_application.route("/genres_afficher/<string:order_by>/<int:id_material_sel>", methods=['GET', 'POST'])
+def genres_afficher(order_by,id_material_sel):
     # OM 2020.04.09 Pour savoir si les données d'un formulaire sont un affichage
     # ou un envoi de donnée par des champs du formulaire HTML.
     if request.method == "GET":
@@ -27,14 +27,14 @@ def genres_afficher(order_by,id_genre_sel):
             # Récupère les données grâce à une requête MySql définie dans la classe GestionGenres()
             # Fichier data_gestion_genres.py
             # "order_by" permet de choisir l'ordre d'affichage des genres.
-            data_genres = obj_actions_genres.genres_afficher_data(order_by,id_genre_sel)
+            data_genres = obj_actions_genres.genres_afficher_data(order_by,id_material_sel)
             # DEBUG bon marché : Pour afficher un message dans la console.
             print(" data genres", data_genres, "type ", type(data_genres))
 
             # Différencier les messages si la table est vide.
-            if not data_genres and id_genre_sel == 0:
+            if not data_genres and id_material_sel == 0:
                 flash("""La table "t_genres" est vide. !!""", "warning")
-            elif not data_genres and id_genre_sel > 0:
+            elif not data_genres and id_material_sel > 0:
                 # Si l'utilisateur change l'id_genre dans l'URL et que le genre n'existe pas,
                 flash(f"Le genre demandé n'existe pas !!", "warning")
             else:
@@ -71,13 +71,13 @@ def genres_add ():
             # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
             obj_actions_genres = GestionGenres()
             # OM 2020.04.09 Récupère le contenu du champ dans le formulaire HTML "genres_add.html"
-            name_genre = request.form['name_material_html']
+            name_material = request.form['name_material_html']
             # On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
             # des valeurs avec des caractères qui ne sont pas des lettres.
             # Pour comprendre [A-Za-zÀ-ÖØ-öø-ÿ] il faut se reporter à la table ASCII https://www.ascii-code.com/
             # Accepte le trait d'union ou l'apostrophe, et l'espace entre deux mots, mais pas plus d'une occurence.
             if not re.match("^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$",
-                            name_genre):
+                            name_material):
                 # OM 2019.03.28 Message humiliant à l'attention de l'utilisateur.
                 flash(f"Une entrée...incorrecte !! Pas de chiffres, de caractères spéciaux, d'espace à double, "
                       f"de double apostrophe, de double trait union et ne doit pas être vide.", "danger")
@@ -86,7 +86,7 @@ def genres_add ():
             else:
 
                 # Constitution d'un dictionnaire et insertion dans la BD
-                valeurs_insertion_dictionnaire = {"value_material": name_genre}
+                valeurs_insertion_dictionnaire = {"value_material": name_material}
                 obj_actions_genres.add_genre_data(valeurs_insertion_dictionnaire)
 
                 # OM 2019.03.25 Les 2 lignes ci-après permettent de donner un sentiment rassurant aux utilisateurs.
@@ -138,14 +138,14 @@ def genres_edit ():
             # l'utilisateur clique sur le lien "edit" et on récupère la valeur de "id_genre"
             # grâce à la variable "id_genre_edit_html"
             # <a href="{{ url_for('genres_edit', id_genre_edit_html=row.id_genre) }}">Edit</a>
-            id_genre_edit = request.values['id_genre_edit_html']
+            id_genre_edit = request.values['id_material_edit_html']
 
             # Pour afficher dans la console la valeur de "id_genre_edit", une façon simple de se rassurer,
             # sans utiliser le DEBUGGER
             print(id_genre_edit)
 
             # Constitution d'un dictionnaire et insertion dans la BD
-            valeur_select_dictionnaire = {"value_id_genre": id_genre_edit}
+            valeur_select_dictionnaire = {"value_id_material": id_genre_edit}
 
             # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
             obj_actions_genres = GestionGenres()
@@ -195,20 +195,20 @@ def genres_update ():
             # l'utilisateur clique sur le lien "edit" et on récupère la valeur de "id_genre"
             # grâce à la variable "id_genre_edit_html"
             # <a href="{{ url_for('genres_edit', id_genre_edit_html=row.id_genre) }}">Edit</a>
-            id_genre_edit = request.values['id_genre_edit_html']
+            id_genre_edit = request.values['id_material_edit_html']
 
             # Récupère le contenu du champ "intitule_genre" dans le formulaire HTML "GenresEdit.html"
-            name_genre = request.values['name_edit_intitule_genre_html']
-            valeur_edit_list = [{'id_genre': id_genre_edit, 'intitule_genre': name_genre}]
+            name_material = request.values['name_edit_material_html']
+            valeur_edit_list = [{'id_material': id_genre_edit, 'material': name_material}]
             # On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
             # des valeurs avec des caractères qui ne sont pas des lettres.
             # Pour comprendre [A-Za-zÀ-ÖØ-öø-ÿ] il faut se reporter à la table ASCII https://www.ascii-code.com/
             # Accepte le trait d'union ou l'apostrophe, et l'espace entre deux mots, mais pas plus d'une occurence.
             if not re.match("^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$",
-                            name_genre):
+                            name_material):
                 # En cas d'erreur, conserve la saisie fausse, afin que l'utilisateur constate sa misérable faute
                 # Récupère le contenu du champ "intitule_genre" dans le formulaire HTML "GenresEdit.html"
-                # name_genre = request.values['name_edit_intitule_genre_html']
+                # name_material = request.values['name_edit_material_html']
                 # Message humiliant à l'attention de l'utilisateur.
                 flash(f"Une entrée...incorrecte !! Pas de chiffres, de caractères spéciaux, d'espace à double, "
                       f"de double apostrophe, de double trait union et ne doit pas être vide.", "danger")
@@ -217,7 +217,7 @@ def genres_update ():
                 # Constitution d'une liste pour que le formulaire d'édition "genres_edit.html" affiche à nouveau
                 # la possibilité de modifier l'entrée
                 # Exemple d'une liste : [{'id_genre': 13, 'intitule_genre': 'philosophique'}]
-                valeur_edit_list = [{'id_genre': id_genre_edit, 'intitule_genre': name_genre}]
+                valeur_edit_list = [{'id_material': id_genre_edit, 'material': name_material}]
 
                 # DEBUG bon marché :
                 # Pour afficher le contenu et le type de valeurs passées au formulaire "genres_edit.html"
@@ -225,7 +225,7 @@ def genres_update ():
                 return render_template('genres/genres_edit.html', data=valeur_edit_list)
             else:
                 # Constitution d'un dictionnaire et insertion dans la BD
-                valeur_update_dictionnaire = {"value_id_genre": id_genre_edit, "value_name_genre": name_genre}
+                valeur_update_dictionnaire = {"value_id_material": id_genre_edit, "value_material": name_material}
 
                 # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
                 obj_actions_genres = GestionGenres()
@@ -237,7 +237,7 @@ def genres_update ():
                 # Message ci-après permettent de donner un sentiment rassurant aux utilisateurs.
                 flash(f"Valeur genre modifiée. ", "success")
                 # On affiche les genres avec celui qui vient d'être edité en tête de liste. (DESC)
-                return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=id_genre_edit))
+                return redirect(url_for('genres_afficher', order_by="ASC", id_material_sel=id_genre_edit))
 
         except (Exception,
                 # pymysql.err.OperationalError,
@@ -265,10 +265,10 @@ def genres_select_delete ():
             # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
             obj_actions_genres = GestionGenres()
             # OM 2019.04.04 Récupère la valeur de "idGenreDeleteHTML" du formulaire html "GenresDelete.html"
-            id_genre_delete = request.args.get('id_genre_delete_html')
+            id_genre_delete = request.args.get('id_material_delete_html')
 
             # Constitution d'un dictionnaire et insertion dans la BD
-            valeur_delete_dictionnaire = {"value_id_genre": id_genre_delete}
+            valeur_delete_dictionnaire = {"value_id_material": id_genre_delete}
 
             # OM 2019.04.02 La commande MySql est envoyée à la BD
             data_id_genre = obj_actions_genres.delete_select_genre_data(valeur_delete_dictionnaire)
@@ -303,16 +303,16 @@ def genres_delete ():
             # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
             obj_actions_genres = GestionGenres()
             # OM 2019.04.02 Récupère la valeur de "id_genre" du formulaire html "GenresAfficher.html"
-            id_genre_delete = request.form['id_genre_delete_html']
+            id_genre_delete = request.form['id_material_delete_html']
             # Constitution d'un dictionnaire et insertion dans la BD
-            valeur_delete_dictionnaire = {"value_id_genre": id_genre_delete}
+            valeur_delete_dictionnaire = {"value_id_material": id_genre_delete}
 
             data_genres = obj_actions_genres.delete_genre_data(valeur_delete_dictionnaire)
             # OM 2019.04.02 On va afficher la liste des genres des films
             # OM 2019.04.02 Envoie la page "HTML" au serveur. On passe un message d'information dans "message_html"
 
             # On affiche les genres
-            return redirect(url_for('genres_afficher',order_by="ASC",id_genre_sel=0))
+            return redirect(url_for('genres_afficher',order_by="ASC",id_material_sel=0))
 
 
 
@@ -326,7 +326,7 @@ def genres_delete ():
                 # DEBUG bon marché : Pour afficher un message dans la console.
                 print(f"IMPOSSIBLE d'effacer !! Ce genre est associé à des films dans la t_genres_films !!! : {erreur}")
                 # Afficher la liste des genres des films
-                return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=0))
+                return redirect(url_for('genres_afficher', order_by="ASC", id_material_sel=0))
             else:
                 # Communiquer qu'une autre erreur que la 1062 est survenue.
                 # DEBUG bon marché : Pour afficher un message dans la console.
