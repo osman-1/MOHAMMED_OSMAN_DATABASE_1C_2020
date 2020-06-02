@@ -68,7 +68,7 @@ class GestionGenres():
         try:
             print(valeurs_insertion_dictionnaire)
             # OM 2020.04.07 C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
-            strsql_insert_genre = """INSERT INTO t_material (id_material, material, model, Num serie, Fin de garentie, Date d'achat) VALUES (NULL,%(value_material),%(value_model),%(value_NumSerie),(value_fin),%(value_date)s)"""
+            strsql_insert_genre = """INSERT INTO t_material (id_material, material) VALUES (NULL,%(value_material)s)"""
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             # la subtilité consiste à avoir une méthode "mabd_execute" dans la classe "MaBaseDeDonnee"
             # ainsi quand elle aura terminé l'insertion des données le destructeur de la classe "MaBaseDeDonnee"
